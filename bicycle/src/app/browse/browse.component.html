@@ -1,0 +1,29 @@
+<p><a [routerLink]="['browse']">Browse</a> | <a [routerLink]="['listings']">My Listings</a> | <a [routerLink]="['logoff']">Logoff</a></p>
+<div id="container">
+  <form>
+    <div><label>Search: </label><input type="text" name="search"><input type="submit" value='search'></div>
+  </form>
+  <div id="listings">
+    <div *ngFor="let bike of allBikes">
+      <img src="{{bike.image}}">
+      <div>
+        <h5>Title</h5>
+        <p>{{bike.title}}</p>
+      </div>
+      <div>
+        <h5>Price</h5>
+        <p>{{bike.price}}</p>
+      </div>
+      <div>
+        <h5>Location</h5>
+        <p>{{bike.location}}</p>
+      </div>
+      <div>
+        <h5>Description</h5>
+        <p>{{bike.description}}</p>
+      </div>
+      <button *ngIf="currUser.email == bike.owner" (click)="deleteBike(bike)">Delete</button>
+      <button *ngIf="currUser.email != bike.owner" (click)="contact(bike.owner)">Contact</button>
+    </div>
+  </div>
+</div>

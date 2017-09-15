@@ -1,0 +1,28 @@
+<div id='container'>
+  <div>
+    <h2 style='color: blue'>Bike of the day!</h2>
+    <div id="bikeoftheday">
+      <img src="{{randBike.image}}">
+      <h2>{{randBike.title}} {{randBike.price}}</h2>
+      <p>{{randBike.location}}</p>
+      <p>{{randBike.description}}</p>
+    </div>
+  </div>
+  <div>
+    <p *ngIf="logErrors">Invalid email/password</p>
+    <form (submit)="login()">
+      <label>*Email: <input name='logemail' [(ngModel)]="loginInfo.email" type="text"></label>
+      <label>*Password: <input name='logpassword' [(ngModel)]="loginInfo.password" type="password"></label>
+      <input type="submit" value='Login'>
+    </form>
+    <p *ngFor="let err of regErrors">{{err}}</p>
+    <form (submit)="register()">
+      <label>*First Name: <input [(ngModel)]="user.firstName" name='first' type="text"></label>
+      <label>*Last Name: <input [(ngModel)]="user.lastName" name='last' type="text"></label>
+      <label>*Email: <input [(ngModel)]="user.email" name='email' type="text"></label>
+      <label>*Password: <input [(ngModel)]="user.password" name='pw' type="text"></label>
+      <label>*Password Confirmation: <input [(ngModel)]="user.confirmPassword" name='cpw' type="text"></label>
+      <input type="submit" value='Register'>
+    </form>
+  </div>
+</div>

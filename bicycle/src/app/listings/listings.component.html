@@ -1,0 +1,26 @@
+<p><a [routerLink]="['browse']">Browse</a> | <a [routerLink]="['listings']">My Listings</a> | <a [routerLink]="['logoff']">Logoff</a></p>
+<div id="container">
+  <h2>Create Listing</h2>
+  <form (submit)="createBike()">
+    <div><label>Title: </label><input [(ngModel)]="bicycle.title" type="text" name='title'></div>
+    <div><label>Description: </label><input [(ngModel)]="bicycle.description" name='description' type="text"></div>
+    <div><label>Price: </label><input [(ngModel)]="bicycle.price" name='price' type="number" step='.01'></div>
+    <div><label>Location: </label><input [(ngModel)]="bicycle.location" name='location' type="text"></div>
+    <div><label>Image: </label><input [(ngModel)]="bicycle.image" name='image' type="text"></div>
+    <div><input type="submit" value='CREATE'></div>
+  </form>
+  <div id="listings">
+    <div *ngFor="let bike of allBikes">
+      <img src="{{bike.image}}">
+      <form (submit)="updateBike(bike)">
+        <div><label>Title: </label><input type="text" name='title' [(ngModel)]='bike.title'></div>
+        <div><label>Price: </label><input type="text" name='price' [(ngModel)]='bike.price'></div>
+        <div><label>Description: </label><input type="text" name='description' [(ngModel)]='bike.description'></div>
+        <div><label>Location: </label><input type="text" name='location' [(ngModel)]='bike.location'></div>
+        <div><label>Image: </label><input type="text" name='image' [(ngModel)]='bike.image'></div>
+        <div><input type="submit" value='UPDATE'></div>
+      </form>
+      <button (click)="deleteBike(bike)">Delete</button>
+    </div>
+  </div>
+</div>
