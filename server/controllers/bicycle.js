@@ -10,6 +10,7 @@ module.exports = {
 
   register: function(req, res){
     console.log(req.body);
+    req.body.hashed=false;
     var user = new User(req.body);
 
     user.save(function(err){
@@ -29,10 +30,12 @@ module.exports = {
           res.json(false);
         }
         else if(bcrypt.compareSync(req.body.password, user.password)){
+            console.log(req.body.password);
             req.session.curr = user;
             res.json(true);
         }
         else{
+          console.log('LOGIN FAILED');
             res.json(false);
         }
       }
@@ -40,10 +43,32 @@ module.exports = {
   },
 
   create: function(req, res){
-    req.body.owner = req.session.curr.email;
-    var bike = new Bike(req.body);
-    bike.save(function(err){
-      res.json(err);
+    console.log("GOT HERE");
+    User.findOne({_id: req.session.curr._id}, function(err, user){
+      req.body._owner = user._id;
+      var bike = new Bike(req.body);
+      bike.save(function(err){
+        console.log("BEFORE");
+        console.log(user);
+        // user.bikes.push(bike._id);
+        console.log("ADDED BIKE");
+        console.log(user);
+        user.save(function(err){
+          console.log("saving user!!");
+          console.log(user);
+          console.log("gsgsdggfsgs");
+          if(!err){
+            console.log("NO ERROR");
+            req.session.curr = user;
+            res.json(true);
+          }
+          else{
+            console.log("ERROR");
+            res.json(err);
+          }
+        })
+      })
+      
     })
   },
 
@@ -59,7 +84,7 @@ module.exports = {
   },
 
   myBikes: function(req, res){
-    Bike.find({owner: req.session.curr.email}, function(err, bikes){
+    Bike.find({_owner: req.session.curr._id}, function(err, bikes){
       if(err){
         console.log("QQQQQQQQQ");
         res.json('error');

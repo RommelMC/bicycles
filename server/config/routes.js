@@ -1,4 +1,5 @@
 var bicycles = require('../controllers/bicycle.js');
+let path = require('path');
 module.exports = function(app) {
   app.get('/', bicycles.index);
   app.get('/logoff', bicycles.logoff);
@@ -11,5 +12,9 @@ module.exports = function(app) {
   app.get('/currentUser', bicycles.currentUser);
   app.post('/listings/bikes/update/:id', bicycles.updateBike);
   app.delete('/listings/bikes/delete/:id', bicycles.deleteBike);
+
+  app.all("*", (req,res,next) => {
+    res.sendFile(path.resolve("./bicycle/dist/index.html"))
+  });
 
 }

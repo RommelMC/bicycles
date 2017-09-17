@@ -1,10 +1,10 @@
 <p><a [routerLink]="['browse']">Browse</a> | <a [routerLink]="['listings']">My Listings</a> | <a [routerLink]="['logoff']">Logoff</a></p>
 <div id="container">
   <form>
-    <div><label>Search: </label><input type="text" name="search"><input type="submit" value='search'></div>
+    <div><label>Search: </label><input (ngModelChange)="search()" [(ngModel)]="searchItem.item" type="text" name="search"><input type="submit" value='search'></div>
   </form>
   <div id="listings">
-    <div *ngFor="let bike of allBikes">
+    <div *ngFor="let bike of showBikes">
       <img src="{{bike.image}}">
       <div>
         <h5>Title</h5>

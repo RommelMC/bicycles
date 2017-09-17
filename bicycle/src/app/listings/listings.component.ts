@@ -34,6 +34,7 @@ export class ListingsComponent implements OnInit {
   
   getBikes(){
     this.apiService.getMyBikes().then(result => {
+      console.log(result);
       this.allBikes = result;
     })
   }

@@ -1,5 +1,7 @@
 // require mongoose
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 // create the schema
 var BicycleSchema = new mongoose.Schema({
     title: {type: String, required: true},
@@ -7,7 +9,7 @@ var BicycleSchema = new mongoose.Schema({
     location: {type: String, required: true},
     image: {type: String, required: true},
     description: {type: String, required: true, maxlength: 200},
-    owner: {type: String},
+    _owner: {type:Schema.Types.ObjectId, ref: 'User'},
 })
 // register the schema as a model
 BicycleSchema.statics.random = function(callback) {

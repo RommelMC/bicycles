@@ -9,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class BrowseComponent implements OnInit {
   allBikes = [];
   currUser = {};
+  showBikes = [];
+  searchItem = {item:""};
+  
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -19,6 +22,7 @@ export class BrowseComponent implements OnInit {
   getBikes(){
     this.apiService.getBikes().then(result => {
       this.allBikes = result;
+      this.showBikes = this.allBikes;
     })
   }
 
@@ -37,4 +41,14 @@ export class BrowseComponent implements OnInit {
     alert("email: " + owner);
   }
 
+  search(){
+    console.log("ahhh");
+    this.showBikes = [];
+    for(var i = 0; i < this.allBikes.length; i++){
+      console.log(i);
+      if(this.allBikes[i].title.indexOf(this.searchItem.item) != -1){
+        this.showBikes.push(this.allBikes[i]);
+      }
+    }
+  }
 }
